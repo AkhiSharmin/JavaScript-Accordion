@@ -11,11 +11,14 @@ body {
 }
 
 .accordion {
+  border: 5px solid #087f5b;
+  padding: 50px;
   width: 700px;
   margin: 100px auto;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  margin-left: 380px;
 }
 
 .item {
