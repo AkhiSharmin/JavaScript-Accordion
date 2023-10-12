@@ -14,6 +14,10 @@ const faqs = [
     title: "Do you ship to countries outside the EU?",
     text: "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!",
   },
+  {
+    title: "Think in React",
+    text: "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!",
+  },
 ];
 
 function App() {
@@ -25,25 +29,29 @@ function App() {
 }
 
 function Accordion({ data }) {
+  const [curOpen, setCurOpen] = useState(null);
   return (
     <div className="accordion">
       {data.map((el, index) => (
         <AccordionItems
           key={index}
           title={el.title}
-          text={el.text}
           num={index}
-        />
+          curOpen={curOpen}
+          onOpen={setCurOpen}
+        >
+          {el.text}
+        </AccordionItems>
       ))}
     </div>
   );
 }
 
-function AccordionItems({ num, title, text }) {
-  const [isOpen, setIsOpen] = useState(false);
+function AccordionItems({ num, title, curOpen, onOpen, children }) {
+  const isOpen = num === curOpen;
 
   function handelToggle() {
-    setIsOpen((isOpen) => !isOpen);
+    onOpen(isOpen ? null : num);
   }
 
   return (
@@ -52,7 +60,7 @@ function AccordionItems({ num, title, text }) {
       <p className="title">{title}</p>
       <p className="icon">{isOpen ? "-" : "+"}</p>
 
-      {isOpen && <div className="content-box">{text}</div>}
+      {isOpen && <div className="content-box">{children}</div>}
     </div>
   );
 }
